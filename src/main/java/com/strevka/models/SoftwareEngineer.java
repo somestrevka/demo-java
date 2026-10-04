@@ -6,13 +6,14 @@ import jakarta.persistence.*;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 public class SoftwareEngineer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(name = "name")
     private String name;
@@ -28,9 +29,13 @@ public class SoftwareEngineer {
 
     public SoftwareEngineer(SoftwareEngineerDto softwareEngineerDto) {
         this.name = softwareEngineerDto.name();
+        this.skills = softwareEngineerDto.skills().
+                stream().
+                map(skillDto -> new Skill(skillDto)).
+                collect(Collectors.toSet());;
     }
 
-    public SoftwareEngineer(Integer id,
+    public SoftwareEngineer(Long id,
                             String name) {
         this.id = id;
         this.name = name;
@@ -44,11 +49,11 @@ public class SoftwareEngineer {
         this.skills = skills;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

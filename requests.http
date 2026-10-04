@@ -12,5 +12,38 @@ POST http://localhost:8080/api/v1/software-engineers
 Content-Type: application/json
 
 {
-  "name": "John"
+  "name": "Johnas",
+  "skills": [
+    {"id": 5 }
+  ]
+}
+
+###
+POST http://localhost:8080/api/v1/skills/add
+Content-Type: application/json
+
+{
+  "name": "Java Spring JPA"
+}
+
+###
+GET http://localhost:8080/api/v1/skills/999
+
+###
+POST http://localhost:8080/api/v1/projects/add
+Content-Type: application/json
+
+{
+  "name": "Hero Platform 1",
+  "skills": [
+    {"id": 5 }
+  ]
+}
+
+###
+POST http://localhost:8080/api/v1/skills/add
+Content-Type: application/json
+
+{
+  "name": "  "
 }

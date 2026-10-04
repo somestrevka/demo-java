@@ -1,8 +1,9 @@
 package com.strevka.controllers;
 
 import com.strevka.dto.SoftwareEngineerDto;
-import com.strevka.services.impl.SoftwareEngineerService;
-import com.strevka.models.SoftwareEngineer;
+import com.strevka.services.impl.SoftwareEngineerServiceImpl;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,9 +12,9 @@ import java.util.List;
 @RequestMapping("api/v1/software-engineers")
 public class SoftwareEngineerController {
 
-    private final SoftwareEngineerService softwareEngineerService;
+    private final SoftwareEngineerServiceImpl softwareEngineerService;
 
-    public SoftwareEngineerController(SoftwareEngineerService softwareEngineerService) {
+    public SoftwareEngineerController(SoftwareEngineerServiceImpl softwareEngineerService) {
         this.softwareEngineerService = softwareEngineerService;
     }
 
@@ -24,12 +25,13 @@ public class SoftwareEngineerController {
 
 
     @PostMapping
-    public void addNewSoftwareEngineer(@RequestBody SoftwareEngineerDto newEngineer) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public void addNewSoftwareEngineer(@Valid @RequestBody SoftwareEngineerDto newEngineer) {
         softwareEngineerService.insertSoftwareEngineer(newEngineer);
     }
 
     @GetMapping("/{id}")
-    public SoftwareEngineerDto getEngineerById(@PathVariable Integer id) {
+    public SoftwareEngineerDto getEngineerById(@PathVariable Long id) {
         return softwareEngineerService.getSoftwareEngineerById(id);
     }
 }

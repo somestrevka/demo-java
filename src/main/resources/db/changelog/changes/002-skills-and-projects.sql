@@ -32,3 +32,7 @@ CREATE TABLE project_requirement
 
 --changeset somestrevka:006-drop-tech-stack
 ALTER TABLE software_engineer DROP COLUMN tech_stack;
+
+--changeset somestrecka:007-update-id-column
+ALTER TABLE software_engineer ALTER COLUMN id TYPE BIGINT;
+ALTER TABLE engineer_skill ALTER COLUMN engineer_id TYPE BIGINT;

@@ -6,6 +6,6 @@ import jakarta.validation.constraints.Size;
 
 import java.util.Set;
 
-public record SoftwareEngineerDto(Long id, @NotBlank @Size(max = 255) String name,
-                                  @NotNull Set<SkillDto> skills) {
+public record ProjectDto(Long id, @NotBlank @Size(max = 255) String name,
+                         @NotNull Set<SkillDto> skills) {
 }

@@ -1,5 +1,6 @@
 package com.strevka.models;
 
+import com.strevka.dto.SkillDto;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,6 +12,19 @@ public class Skill {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+
+    public Skill() {
+
+    }
+
+    public Skill(String name) {
+        this.name = name;
+    }
+
+    public Skill(SkillDto skillDto) {
+        this.name = skillDto.name();
+        this.id = skillDto.id();
+    }
 
     public String getName() {
         return name;

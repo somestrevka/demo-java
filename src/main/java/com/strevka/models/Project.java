@@ -1,9 +1,11 @@
 package com.strevka.models;
 
+import com.strevka.dto.ProjectDto;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 public class Project {
@@ -12,11 +14,22 @@ public class Project {
     private Long id;
     private String name;
 
-    @ManyToMany
-    @JoinTable(name = "project_requirement",
-            joinColumns = @JoinColumn(name = "project_id"),
-            inverseJoinColumns = @JoinColumn(name = "skill_id"))
-    private Set<Skill> requiredSkills = new HashSet<>();
+    public Project() {
+
+    }
+
+    public Project(String name) {
+        this.name = name;
+    }
+
+    public Project(ProjectDto projectDto) {
+        this.name = projectDto.name();
+        this.id = projectDto.id();
+        this.requiredSkills = projectDto.skills().
+                stream().
+                map(skillDto -> new Skill(skillDto)).
+                collect(Collectors.toSet());
+    }
 
     public Set<Skill> getRequiredSkills() {
         return requiredSkills;
@@ -41,4 +54,10 @@ public class Project {
     public Long getId() {
         return id;
     }
+
+    @ManyToMany
+    @JoinTable(name = "project_requirement",
+            joinColumns = @JoinColumn(name = "project_id"),
+            inverseJoinColumns = @JoinColumn(name = "skill_id"))
+    private Set<Skill> requiredSkills = new HashSet<>();
 }
