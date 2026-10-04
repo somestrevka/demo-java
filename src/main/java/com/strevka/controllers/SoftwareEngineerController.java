@@ -1,7 +1,7 @@
 package com.strevka.controllers;
 
 import com.strevka.dto.SoftwareEngineerDto;
-import com.strevka.services.impl.SoftwareEngineerServiceImpl;
+import com.strevka.services.SoftwareEngineerService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -12,9 +12,9 @@ import java.util.List;
 @RequestMapping("api/v1/software-engineers")
 public class SoftwareEngineerController {
 
-    private final SoftwareEngineerServiceImpl softwareEngineerService;
+    private final SoftwareEngineerService softwareEngineerService;
 
-    public SoftwareEngineerController(SoftwareEngineerServiceImpl softwareEngineerService) {
+    public SoftwareEngineerController(SoftwareEngineerService softwareEngineerService) {
         this.softwareEngineerService = softwareEngineerService;
     }
 

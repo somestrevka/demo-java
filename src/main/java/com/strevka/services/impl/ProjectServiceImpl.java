@@ -6,7 +6,7 @@ import com.strevka.exceptions.NotFoundException;
 import com.strevka.models.Project;
 import com.strevka.repositories.ProjectRepository;
 import com.strevka.services.ProjectService;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -27,6 +27,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public ProjectDto getProjectById(Long ProjectId) {
         Optional<Project> foundProject = ProjectRepository.findById(ProjectId);
         return foundProject.map(foundS -> new ProjectDto(foundS.getId(),

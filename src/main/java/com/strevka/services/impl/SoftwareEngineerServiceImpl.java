@@ -5,6 +5,7 @@ import com.strevka.dto.SoftwareEngineerDto;
 import com.strevka.exceptions.NotFoundException;
 import com.strevka.models.SoftwareEngineer;
 import com.strevka.repositories.SoftwareEngineerRepository;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +21,8 @@ public class SoftwareEngineerServiceImpl implements com.strevka.services.Softwar
         this.softwareEngineerRepository = softwareEngineerRepository;
     }
 
+    @Override
+    @Transactional(readOnly = true)
     public List<SoftwareEngineerDto> getAllSoftwareEngineers() {
         return softwareEngineerRepository
                 .findAll()
@@ -28,10 +31,14 @@ public class SoftwareEngineerServiceImpl implements com.strevka.services.Softwar
                 .toList();
     }
 
+    @Override
+    @Transactional
     public void insertSoftwareEngineer(SoftwareEngineerDto newEngineer) {
         softwareEngineerRepository.save(new SoftwareEngineer(newEngineer));
     }
 
+    @Override
+    @Transactional(readOnly = true)
     public SoftwareEngineerDto getSoftwareEngineerById(Long id) {
         Optional<SoftwareEngineer> foundEngineer = softwareEngineerRepository.findById(id);
         return foundEngineer.map(softwareEngineer -> fromModel2Dto(softwareEngineer))
