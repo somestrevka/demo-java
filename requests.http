@@ -47,3 +47,40 @@ Content-Type: application/json
 {
   "name": "  "
 }
+
+### Register
+POST http://localhost:8080/api/v1/auth/register
+Content-Type: application/json
+
+{
+  "username": "ceva",
+  "password": "a-long-password2"
+}
+
+### Login
+POST http://localhost:8080/api/v1/auth/login
+Content-Type: application/json
+
+{
+  "username": "andrei",
+  "password": "a-long-password"
+}
+
+> {% client.global.set("token", response.body.token); %}
+
+###
+GET http://localhost:8080/api/v1/skills/5
+Authorization: Bearer {{token}}
+
+
+###
+POST http://localhost:8080/api/v1/projects/add
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Hero Platform 2",
+  "skills": [
+    {"id": 5 }
+  ]
+}

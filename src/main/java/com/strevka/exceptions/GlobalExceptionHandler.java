@@ -3,6 +3,7 @@ package com.strevka.exceptions;
 import org.springframework.beans.factory.parsing.Problem;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.*;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -41,5 +42,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         ProblemDetail body = ex.getBody();
         body.setProperty("errors", errors);
         return handleExceptionInternal(ex, body, headers, status, request);
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ProblemDetail handleBadCredentials(BadCredentialsException ex) {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.UNAUTHORIZED, ex.getMessage());
     }
 }
