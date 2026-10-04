@@ -1,0 +1,23 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-create-software-engineer
+      author: somestrevka
+      changes:
+        - createTable:
+            tableName: software_engineer
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+              - column:
+                  name: tech_stack
+                  type: varchar(255)
+  - includeAll:
+      path: db/changelog/changes/
